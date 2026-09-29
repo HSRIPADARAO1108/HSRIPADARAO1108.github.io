@@ -3,245 +3,483 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>H Sripada Rao | Portfolio</title>
+<title>H Sripada Rao | Explainable AI and Cloud Systems</title>
 <meta name="description" content="M.Tech CSE student working on explainable AI for cloud anomaly detection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#ffffff; --card:#f5f7fb; --text:#1b1f2a; --muted:#5b6475;
-  --accent:#1f3864; --accent2:#2f6fdb; --border:#dfe4ee;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#0f1420; --card:#171e2e; --text:#e8ecf5; --muted:#9aa5bb;
-         --accent:#8ab4ff; --accent2:#6ea0ff; --border:#263048; }
-}
+:root{--ink:#1a1446;--paper:#f7f5ff;--violet:#6c4bff;--magenta:#ff3d81;--cyan:#00b8c8;--amber:#ffab1a;--white:#fff;--muted:#5a5680;--deep:#1a1446;--card:#fff;--navbg:rgba(247,245,255,.92)}
+html[data-theme=dark]{--paper:#120e33;--ink:#efeaff;--muted:#a9a3d6;--card:#1e1852;--navbg:rgba(18,14,51,.92);--deep:#0b0824}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-     background:var(--bg);color:var(--text);line-height:1.6}
-a{color:var(--accent2);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+body{font-family:"DM Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+h1,h2,h3{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.15}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
 
-header.nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:10}
-header.nav .wrap{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;flex-wrap:wrap;gap:8px}
-header.nav strong{color:var(--accent)}
-header.nav nav a{margin-left:16px;font-size:.95rem;color:var(--muted)}
-header.nav nav a:hover{color:var(--accent2);text-decoration:none}
+nav{position:sticky;top:0;z-index:20;background:var(--navbg);backdrop-filter:blur(8px);border-bottom:2px solid var(--ink)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;flex-wrap:wrap;gap:6px}
+nav b{font-family:"Space Grotesk",sans-serif;font-size:1.1rem}
+nav div a{margin-left:14px;text-decoration:none;font-weight:500;font-size:.95rem;border-bottom:3px solid transparent}
+nav div a:hover{border-color:var(--magenta)}
 
-.hero{padding:64px 0 32px}
-.hero h1{font-size:2.4rem;color:var(--accent);line-height:1.2}
-.hero p.role{font-size:1.15rem;color:var(--muted);margin:8px 0 16px}
-.hero p.about{max-width:680px}
-.btns{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-block;padding:9px 18px;border-radius:8px;border:1px solid var(--accent2);
-     color:var(--accent2);font-weight:600;font-size:.95rem}
-.btn.primary{background:var(--accent2);color:#fff}
-.btn:hover{text-decoration:none;opacity:.88}
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--violet) 0%,#8a3dff 45%,var(--magenta) 100%);color:var(--white);padding:56px 0 96px}
+.hero .grid{position:relative;z-index:2}
+.hero .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:36px;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:8px}
+.hero .role{font-size:1.15rem;font-weight:500;color:#ffe7f0;min-height:1.8em}
+.hero p.about{margin:14px 0 22px;max-width:480px;color:#f3ecff}
+.btn{display:inline-block;padding:10px 20px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--white);margin:0 8px 8px 0;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.fill{background:var(--amber);border-color:var(--amber);color:#1a1446}
+.btn.ghost{color:var(--white)}
 
-section{padding:36px 0}
-section h2{font-size:1.5rem;color:var(--accent);border-bottom:2px solid var(--border);
-           padding-bottom:6px;margin-bottom:20px}
+/* live demo */
+.demo{background:var(--deep);border-radius:18px;padding:16px;box-shadow:8px 8px 0 rgba(0,0,0,.25)}
+.demo h2{font-size:1rem;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--white)}
+.demo small{font-weight:400;color:#b9b3e6;font-family:"DM Sans",sans-serif}
+canvas{width:100%;height:190px;display:block;margin:10px 0}
+.status{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:.9rem;color:#dcd8ff}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--cyan);margin-right:6px}
+.dot.bad{background:var(--magenta)}
+.demo button{font:inherit;font-weight:700;background:var(--cyan);color:#1a1446;border:0;border-radius:999px;padding:6px 14px;cursor:pointer}
+.why{margin-top:10px;display:grid;gap:6px}
+.bar{display:grid;grid-template-columns:64px 1fr 42px;gap:8px;align-items:center;font-size:.85rem;color:#dcd8ff}
+.bar i{display:block;height:10px;border-radius:6px;background:#2d2670;overflow:hidden}
+.bar i span{display:block;height:100%;width:0;transition:width .5s}
 
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
-.card h3{font-size:1.1rem;margin-bottom:2px}
+/* sections */
+section{padding:52px 0}
+section h2.t{font-size:1.9rem;margin-bottom:22px}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.proj{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:20px;box-shadow:6px 6px 0 var(--c);transition:transform .15s,box-shadow .15s}
+.proj:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--c)}
+.proj.big{grid-column:1/-1}
+.proj h3{font-size:1.2rem;margin-bottom:4px}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:10px}
-.card ul{padding-left:20px}
-.card li{margin-bottom:6px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.tag{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:2px 10px;font-size:.8rem;color:var(--muted)}
-.links{margin-top:10px;display:flex;gap:14px;flex-wrap:wrap;font-size:.95rem}
+.proj ul{padding-left:20px}.proj li{margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.tag{background:var(--c);color:var(--white);border-radius:999px;padding:2px 12px;font-size:.8rem;font-weight:700}
+.link{font-weight:700;text-decoration:none;border-bottom:3px solid var(--c)}
 
-.edu{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-.edu .when{color:var(--muted);font-size:.9rem;white-space:nowrap}
-.cert-link{display:inline-block;margin:8px 12px 0 0;font-size:.9rem;font-weight:600}
+.skills{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:2px solid var(--ink);border-radius:12px;padding:8px 14px;background:var(--card);color:var(--ink);font-weight:500;cursor:default;transition:background .15s,color .15s}
+.chip:hover{background:var(--c);color:var(--white)}
+.group{margin-bottom:18px}.group h3{font-size:1rem;margin-bottom:8px;color:var(--muted)}
 
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
-.skills .card{margin:0}
-.skills h3{font-size:1rem;margin-bottom:6px}
+.timeline{border-left:4px solid var(--violet);padding-left:22px;display:grid;gap:22px;margin-left:8px}
+.tl{position:relative}
+.tl::before{content:"";position:absolute;left:-32px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--magenta);border:3px solid var(--paper)}
+.tl .when{font-weight:700;color:var(--violet)}
+.tl h3{font-size:1.1rem}
+.tl a{display:inline-block;margin-top:6px;font-weight:700;text-decoration:none;background:var(--amber);color:#1a1446;padding:3px 12px;border-radius:999px;font-size:.88rem}
 
-.cert-list{list-style:none;padding:0}
-.cert-list li{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
-              padding:10px 0;border-bottom:1px solid var(--border)}
-.cert-list li:last-child{border-bottom:none}
-.cert-list .date{color:var(--muted);font-size:.9rem}
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.cert{display:block;text-decoration:none;background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:16px;color:var(--ink);border-top:8px solid var(--c);transition:transform .15s}
+.cert:hover{transform:translateY(-4px)}
+.cert b{display:block}.cert span{color:var(--muted);font-size:.88rem}
 
-footer{padding:28px 0;text-align:center;color:var(--muted);font-size:.9rem;border-top:1px solid var(--border);margin-top:20px}
+.contact{background:var(--deep);color:var(--white);border-radius:20px;padding:32px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.contact h2{font-size:1.7rem;margin-bottom:6px}
+.contact a{display:block;margin:6px 0;font-weight:500;color:#ffd9e8}
+footer{text-align:center;padding:24px;color:var(--muted);font-size:.9rem}
+
+#bar{position:fixed;top:0;left:0;height:5px;width:0;background:linear-gradient(90deg,var(--cyan),var(--amber),var(--magenta));z-index:30}
+#theme{font:inherit;font-weight:700;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer;margin-left:14px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 8px}
+.node{font:inherit;font-weight:700;border:2px solid var(--ink);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 12px;cursor:pointer;transition:transform .15s}
+.node:hover{transform:translateY(-2px)}
+.node[aria-pressed=true]{background:var(--c);border-color:var(--c);color:#fff}
+.arrow{color:var(--muted);font-weight:700}
+.flowtxt{background:var(--paper);border-left:6px solid var(--c);padding:10px 14px;border-radius:8px;min-height:3.4em;margin-bottom:6px}
+.hint{font-size:.85rem;color:var(--muted)}
+/* moving clouds */
+.sky{position:absolute;inset:0;pointer-events:none;z-index:1}
+.cloud{position:absolute;left:-260px;width:180px;height:54px;border-radius:60px;background:rgba(255,255,255,var(--o,.25));scale:var(--s,1);animation:drift var(--d,60s) linear infinite;animation-delay:var(--dl,0s);transition:background 1s}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:74px;height:74px;top:-34px;left:26px}
+.cloud::after{width:54px;height:54px;top:-22px;left:92px}
+@keyframes drift{to{transform:translateX(calc(100vw + 560px))}}
+.hero.storm .cloud{background:rgba(35,15,80,.5)}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:1}
+.hero.storm .flash{animation:flash .9s ease-out}
+@keyframes flash{0%{opacity:0}12%{opacity:.35}22%{opacity:.05}34%{opacity:.25}100%{opacity:0}}
+.wave{position:absolute;left:0;bottom:-1px;width:100%;height:56px;z-index:2;display:block}
+@media(prefers-reduced-motion:reduce){.cloud{animation:none;left:var(--x,10%)}.hero.storm .flash{animation:none}}
+/* playground + palette */
+.lab{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:20px;box-shadow:6px 6px 0 var(--violet)}
+.panel label{display:block;margin-bottom:14px;font-weight:500}
+.panel input[type=range]{width:100%;accent-color:var(--magenta)}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.presets button{font:inherit;font-weight:700;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer}
+.presets button:hover{background:var(--amber);color:#1a1446}
+.verdict{font-family:"Space Grotesk",sans-serif;font-size:1.5rem;font-weight:700}
+.gauge{position:relative;height:16px;border-radius:8px;background:linear-gradient(90deg,var(--cyan),var(--amber),var(--magenta));margin:14px 0 6px}
+.gauge i{position:absolute;top:-4px;width:6px;height:24px;background:var(--ink);border-radius:3px;left:0;transition:left .25s}
+.gauge b{position:absolute;left:30%;top:-6px;bottom:-6px;border-left:2px dashed var(--ink)}
+.pb{display:grid;grid-template-columns:70px 1fr 44px;gap:8px;align-items:center;font-size:.9rem;margin:6px 0}
+.pb i{height:10px;border-radius:6px;background:var(--paper);border:1px solid var(--ink);overflow:hidden}
+.pb i span{display:block;height:100%;width:0;transition:width .3s}
+.note{font-size:.85rem;color:var(--muted);margin-top:12px}
+.kb{font:inherit;font-size:.85rem;background:none;color:var(--muted);border:2px solid var(--muted);border-radius:8px;padding:2px 8px;cursor:pointer;margin-left:14px}
+#pal{position:fixed;inset:0;background:rgba(10,6,40,.6);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding-top:14vh}
+#pal[hidden]{display:none}
+.palbox{background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:16px;width:min(520px,92vw);padding:12px;box-shadow:8px 8px 0 var(--magenta)}
+#pin{width:100%;font:inherit;padding:10px 12px;border:2px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink)}
+#pl{list-style:none;margin-top:8px;max-height:50vh;overflow:auto}
+#pl button{width:100%;text-align:left;font:inherit;padding:9px 12px;border:0;border-radius:8px;background:none;color:var(--ink);cursor:pointer}
+#pl button.on,#pl button:hover{background:var(--violet);color:#fff}
+/* about, filters, track */
+.skip{position:absolute;left:-999px;top:8px;background:var(--amber);color:#1a1446;padding:8px 14px;border-radius:8px;font-weight:700;z-index:60}
+.skip:focus{left:10px}
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+.about p{margin-bottom:12px;max-width:60ch}
+.facts{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:6px 20px;box-shadow:6px 6px 0 var(--cyan)}
+.facts div{padding:12px 0;border-bottom:1px solid var(--muted)}
+.facts div:last-child{border-bottom:0}
+.facts dt{font-size:.85rem;color:var(--muted)}
+.facts dd{font-weight:700}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 20px}
+.filters button{font:inherit;font-weight:700;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:5px 16px;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--violet);border-color:var(--violet);color:#fff}
+.proj[hidden]{display:none}
+.copy{font:inherit;font-weight:700;margin-top:10px;background:var(--amber);color:#1a1446;border:0;border-radius:999px;padding:6px 14px;cursor:pointer}
+.track{position:fixed;left:16px;top:90px;bottom:40px;width:4px;background:rgba(108,75,255,.25);border-radius:2px;z-index:15}
+.track svg{position:absolute;left:50%;top:0;width:34px;height:22px;margin-left:-17px;filter:drop-shadow(0 2px 0 rgba(26,20,70,.35))}
+@media(max-width:1150px){.track{display:none}}
+@media(max-width:800px){.about{grid-template-columns:1fr}}
+@media(max-width:800px){.lab{grid-template-columns:1fr}}
+@media(max-width:800px){.hero .grid{grid-template-columns:1fr}nav div a{margin:0 10px 0 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<a class="skip" href="#about">Skip to content</a>
+<div class="track" id="track" aria-hidden="true"><svg viewBox="0 0 34 22"><path d="M8 20h19a6 6 0 0 0 1-11.9A9 9 0 0 0 10.6 6.6 7 7 0 0 0 8 20z" fill="#00b8c8" stroke="#1a1446" stroke-width="2"/></svg></div>
 
-<header class="nav">
-  <div class="wrap">
-    <strong>H Sripada Rao</strong>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
-      <a href="#certificates">Certificates</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<div id="bar"></div>
+<nav><div class="wrap"><b>H Sripada Rao</b>
+<div><a href="#about">About</a><a href="#projects">Projects</a><a href="#try">Try it</a><a href="#skills">Skills</a><a href="#education">Education</a><a href="#certs">Certificates</a><a href="#contact">Contact</a><button id="kbtn" class="kb" type="button" aria-label="Open quick jump menu">Quick jump: Ctrl K</button><button id="theme" type="button" aria-label="Switch colour theme">Dark</button></div></div></nav>
+
+<header class="hero">
+  <div class="sky" aria-hidden="true"><div class="cloud" style="top:8%;--d:70s;--dl:-10s;--o:0.28;--s:1.3;--x:5%"></div><div class="cloud" style="top:22%;--d:95s;--dl:-55s;--o:0.18;--s:0.8;--x:40%"></div><div class="cloud" style="top:46%;--d:55s;--dl:-30s;--o:0.3;--s:1.6;--x:70%"></div><div class="cloud" style="top:64%;--d:80s;--dl:-70s;--o:0.2;--s:1;--x:20%"></div><div class="cloud" style="top:78%;--d:110s;--dl:-20s;--o:0.16;--s:0.7;--x:55%"></div><div class="cloud" style="top:34%;--d:120s;--dl:-90s;--o:0.14;--s:2;--x:85%"></div></div>
+  <div class="flash" aria-hidden="true"></div>
+  <div class="wrap grid">
+  <div>
+    <h1>H Sripada Rao</h1>
+    <p class="role" id="role" aria-live="off">M.Tech CSE Student</p>
+    <p class="about">I build monitoring systems that explain what went wrong, not just that something did. My M.Tech project, ExplainAlert, pairs Isolation Forest detection with SHAP root-cause explanations on real AWS CloudWatch metrics.</p>
+    <a class="btn fill" href="resume.pdf" target="_blank" rel="noopener">View resume</a>
+    <a class="btn ghost" href="#projects">See projects</a>
+    <a class="btn ghost" href="https://github.com/HSRIPADARAO1108" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn ghost" href="https://linkedin.com/in/sripadarao" target="_blank" rel="noopener">LinkedIn</a>
   </div>
+
+  <div class="demo" aria-label="Simulated anomaly detection demo">
+    <h2>Live server CPU <small>illustrative simulation, not real data</small></h2>
+    <canvas id="cv" width="520" height="190"></canvas>
+    <div class="status"><span><i class="dot" id="dot"></i><span id="st">Normal</span></span>
+      <button id="inj" type="button">Inject anomaly</button></div>
+    <div class="why" id="why" hidden></div>
+  </div>
+</div>
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0,32 C240,62 480,2 720,32 C960,62 1200,2 1440,32 L1440,60 L0,60Z" fill="var(--paper)"/></svg>
 </header>
 
 <main class="wrap">
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>H Sripada Rao</h1>
-    <p class="role">M.Tech CSE Student | Explainable AI and Cloud Systems</p>
-    <p class="about">
-      I work on explainable AI for cloud anomaly detection. My M.Tech project, ExplainAlert,
-      pairs unsupervised detection (Isolation Forest) with SHAP-based root-cause explanations
-      on real AWS CloudWatch metrics. My research interests are explainable machine learning,
-      anomaly detection, and reliable cloud systems.
-    </p>
-    <div class="btns">
-      <a class="btn primary" href="resume.pdf" target="_blank" rel="noopener">View Resume</a>
-      <a class="btn" href="https://github.com/HSRIPADARAO1108" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="https://linkedin.com/in/sripadarao" target="_blank" rel="noopener">LinkedIn</a>
+<section id="about">
+  <h2 class="t">About me</h2>
+  <div class="about">
+    <div>
+      <p>I'm an M.Tech CSE student in Bengaluru. I like problems where a system fails and someone has to work out why, which is what pulled me from cloud infrastructure toward machine learning for monitoring.</p>
+      <p>My work runs from Terraform and Auto Scaling setups on AWS and Azure to ExplainAlert, a research project that detects server anomalies and explains their cause. I'm looking for research and cloud opportunities where explainability matters.</p>
+      <button class="copy" id="copy" type="button">Copy email address</button>
+    </div>
+    <dl class="facts">
+      <div><dt>Based in</dt><dd>Bengaluru, India</dd></div>
+      <div><dt>Studying</dt><dd>M.Tech CSE, Dr. Ambedkar Institute of Technology (expected 2027, CGPA 7.94)</dd></div>
+      <div><dt>Previously</dt><dd>BE CSE with Honours, Vivekananda Institute of Technology (2025)</dd></div>
+      <div><dt>Focus</dt><dd>Explainable AI, anomaly detection, cloud systems</dd></div>
+      <div><dt>Works with</dt><dd>Python, AWS, Terraform, Linux</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="projects">
+  <h2 class="t">Projects</h2>
+  <div class="filters" role="group" aria-label="Filter projects"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="ai" aria-pressed="false">ML and AI</button><button type="button" data-f="cloud" aria-pressed="false">Cloud and DevOps</button></div>
+  <div class="projects">
+    <article class="proj big" data-cat="ai cloud" style="--c:#ff3d81">
+      <h3>ExplainAlert: Explainable Anomaly Detection for Cloud Servers</h3>
+      <div class="meta">M.Tech research project, June 2026. Guide: Dr. Srinivas A H</div>
+      <ul>
+        <li><b>Detection:</b> Isolation Forest on AWS EC2 reached 97.9% accuracy and 100% recall on 239 labeled CloudWatch samples (CPU, network, disk) collected over 20 hours, with anomalies injected using Linux stress tools.</li>
+        <li><b>Explainability:</b> SHAP gives each anomaly a root-cause explanation with the percentage contribution of each metric.</li>
+        <li><b>Alerting:</b> An automated pipeline (AWS SES, Telegram Bot API) sends real-time notifications with remediation steps, within the AWS Free Tier.</li>
+        <li><b>Comparison:</b> Against native CloudWatch anomaly detection, it adds root-cause explanation, contribution analysis and corrective-action suggestions.</li>
+      </ul>
+      <div class="flow" role="group" aria-label="ExplainAlert pipeline"><button class="node" type="button" style="--c:#6c4bff" data-t="CPU, network and disk metrics collected from AWS CloudWatch on an EC2 server over 20 hours." aria-pressed="true">EC2 metrics</button><span class="arrow" aria-hidden="true">&rarr;</span><button class="node" type="button" style="--c:#00b8c8" data-t="239 labeled samples, with anomalies injected using Linux stress tools." aria-pressed="false">Labeled data</button><span class="arrow" aria-hidden="true">&rarr;</span><button class="node" type="button" style="--c:#ff3d81" data-t="Unsupervised detector that reached 97.9% accuracy and 100% recall on the injected anomalies." aria-pressed="false">Isolation Forest</button><span class="arrow" aria-hidden="true">&rarr;</span><button class="node" type="button" style="--c:#ffab1a" data-t="Explains each anomaly with the percentage contribution of every metric." aria-pressed="false">SHAP</button><span class="arrow" aria-hidden="true">&rarr;</span><button class="node" type="button" style="--c:#6c4bff" data-t="AWS SES email and Telegram messages that include remediation steps." aria-pressed="false">Alerts</button></div>
+      <div class="flowtxt" id="flowtxt" style="--c:#6c4bff">CPU, network and disk metrics collected from AWS CloudWatch on an EC2 server over 20 hours.</div>
+      <div class="hint">Click a stage to see what it does.</div>
+      <div class="tags"><span class="tag">AWS EC2</span><span class="tag">CloudWatch</span><span class="tag">Python</span><span class="tag">Isolation Forest</span><span class="tag">SHAP</span><span class="tag">SES</span><span class="tag">Telegram Bot API</span></div>
+      <a class="link" href="#" target="_blank" rel="noopener">GitHub repository</a>
+    </article>
+
+    <article class="proj" data-cat="cloud" style="--c:#6c4bff">
+      <h3>Multi-Cloud Infrastructure Automation</h3>
+      <div class="meta">2026</div>
+      <ul><li>Designed decoupled infrastructure on Azure and AWS with Terraform.</li><li>Structured Azure resource groups and environment stacks for departmental labs.</li><li>Deployed image-based workloads on AWS App Runner.</li></ul>
+      <div class="tags"><span class="tag">Terraform</span><span class="tag">Azure</span><span class="tag">App Runner</span></div>
+      <a class="link" href="#" target="_blank" rel="noopener">GitHub repository</a>
+    </article>
+
+    <article class="proj" data-cat="cloud" style="--c:#00b8c8">
+      <h3>High-Availability Web Server and VM Lifecycle</h3>
+      <div class="meta">2025</div>
+      <ul><li>Created custom EC2 Linux AMIs that automate web server bootstrap.</li><li>Isolated network layers with strict Security Group rules.</li><li>Configured Auto Scaling policies driven by performance metrics.</li></ul>
+      <div class="tags"><span class="tag">EC2</span><span class="tag">Auto Scaling</span><span class="tag">Security Groups</span></div>
+      <a class="link" href="#" target="_blank" rel="noopener">GitHub repository</a>
+    </article>
+  </div>
+</section>
+
+<section id="try">
+  <h2 class="t">Try it: explain an anomaly</h2>
+  <div class="lab">
+    <div class="panel">
+      <label>CPU usage <b id="vc">35</b>%<input type="range" id="rc" min="0" max="100" value="35"></label>
+      <label>Network traffic <b id="vn">30</b>%<input type="range" id="rn" min="0" max="100" value="30"></label>
+      <label>Disk activity <b id="vd">25</b>%<input type="range" id="rd" min="0" max="100" value="25"></label>
+      <div class="presets"><button type="button" data-p="35,30,25">Normal</button><button type="button" data-p="92,32,27">CPU spike</button><button type="button" data-p="38,90,28">Network flood</button><button type="button" data-p="36,31,88">Disk stress</button></div>
+    </div>
+    <div class="panel" style="box-shadow:6px 6px 0 var(--magenta)" aria-live="polite">
+      <div class="verdict" id="vd2">Normal</div>
+      <div class="gauge"><b></b><i id="gi"></i></div>
+      <div class="hint" style="font-size:.8rem;color:var(--muted)">Dashed line marks the alert threshold.</div>
+      <div id="shares" style="margin-top:10px"></div>
+      <p id="act" style="margin-top:8px;font-weight:500"></p>
+      <p class="note">Simplified deviation-based illustration so you can see the idea. ExplainAlert itself uses Isolation Forest for detection and SHAP for explanations.</p>
     </div>
   </div>
+</section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <h2>Projects</h2>
+<section id="skills">
+  <h2 class="t">Skills</h2>
+  <div class="group"><h3>ML and explainability</h3><div class="skills"><span class="chip" style="--c:#ff3d81">Isolation Forest</span><span class="chip" style="--c:#ff3d81">SHAP</span><span class="chip" style="--c:#ff3d81">scikit-learn</span><span class="chip" style="--c:#ff3d81">Pandas</span><span class="chip" style="--c:#ff3d81">NumPy</span></div></div>
+  <div class="group"><h3>Cloud</h3><div class="skills"><span class="chip" style="--c:#6c4bff">AWS EC2</span><span class="chip" style="--c:#6c4bff">CloudWatch</span><span class="chip" style="--c:#6c4bff">SES</span><span class="chip" style="--c:#6c4bff">App Runner</span><span class="chip" style="--c:#6c4bff">Microsoft Azure</span></div></div>
+  <div class="group"><h3>DevOps</h3><div class="skills"><span class="chip" style="--c:#00b8c8">Terraform</span><span class="chip" style="--c:#00b8c8">Git and GitHub</span><span class="chip" style="--c:#00b8c8">Linux (Ubuntu, Fedora)</span></div></div>
+  <div class="group"><h3>Languages and tools</h3><div class="skills"><span class="chip" style="--c:#ffab1a">Python</span><span class="chip" style="--c:#ffab1a">C</span><span class="chip" style="--c:#ffab1a">Bash</span><span class="chip" style="--c:#ffab1a">SQL</span><span class="chip" style="--c:#ffab1a">JavaScript</span><span class="chip" style="--c:#ffab1a">Streamlit</span><span class="chip" style="--c:#ffab1a">boto3</span></div></div>
+</section>
 
-    <div class="card">
-      <h3>ExplainAlert: Explainable Anomaly Detection for Cloud Servers</h3>
-      <div class="meta">M.Tech Research Project | June 2026 | Guide: Dr. Srinivas A H</div>
-      <ul>
-        <li><b>Detection:</b> Isolation Forest on AWS EC2, reaching 97.9% accuracy and 100% recall on 239 labeled CloudWatch samples (CPU, network, disk) collected over 20 hours, with anomalies injected using Linux stress tools.</li>
-        <li><b>Explainability:</b> SHAP gives per-anomaly root-cause explanations with the percentage contribution of each metric.</li>
-        <li><b>Alerting:</b> Automated pipeline (AWS SES, Telegram Bot API) sending real-time notifications with remediation steps, running within the AWS Free Tier.</li>
-        <li><b>Comparison:</b> Against native CloudWatch anomaly detection, adds root-cause explanation, contribution analysis, and corrective-action suggestions.</li>
-      </ul>
-      <div class="tags">
-        <span class="tag">AWS EC2</span><span class="tag">CloudWatch</span><span class="tag">Python</span>
-        <span class="tag">Isolation Forest</span><span class="tag">SHAP</span><span class="tag">SES</span><span class="tag">Telegram Bot API</span>
-      </div>
-      <!-- Add screenshots later, for example:
-      <img src="images/architecture.png" alt="ExplainAlert architecture" style="max-width:100%;border-radius:8px;margin-top:10px"> -->
-      <div class="links">
-        <!-- Replace # with your repo URL -->
-        <a href="#" target="_blank" rel="noopener">GitHub Repository</a>
-      </div>
+<section id="education">
+  <h2 class="t">Education</h2>
+  <div class="timeline">
+    <div class="tl"><div class="when">Expected 2027</div><h3>M.Tech in Computer Science and Engineering</h3><div class="meta">Dr. Ambedkar Institute of Technology, Bengaluru. CGPA 7.94/10</div></div>
+    <div class="tl"><div class="when">May 2025</div><h3>BE in Computer Science and Engineering with Honours</h3><div class="meta">Vivekananda Institute of Technology. Final CGPA 8.2/10</div>
+      <a href="https://drive.google.com/file/d/1YCGikpNhif1HDTpkUtECgMGZ_f5_QhLv/view?usp=sharing" target="_blank" rel="noopener">View convocation certificate</a></div>
+    <div class="tl"><div class="when">2021</div><h3>2nd PUC (PCMB)</h3><div class="meta">VKJ PU College. 80%</div>
+      <a href="https://drive.google.com/file/d/1yDZ9Ybq2vzF-Rj-p-miiJzxXUUCobycv/view?usp=sharing" target="_blank" rel="noopener">View 2nd PUC marks card</a></div>
+    <div class="tl"><div class="when">SSLC</div><h3>Secondary School Leaving Certificate</h3>
+      <a href="https://drive.google.com/file/d/1Pu0aC_Yk14BCRx-Dfu9RCOP422rZrPpt/view?usp=sharing" target="_blank" rel="noopener">View SSLC marks card</a></div>
+  </div>
+</section>
+
+<section id="certs">
+  <h2 class="t">NPTEL certifications</h2>
+  <div class="certs">
+    <a class="cert" style="--c:#ff3d81" href="https://drive.google.com/file/d/1sfYUtwjbNqjRO42U2nsGyi0u54nKoGOO/view?usp=sharing" target="_blank" rel="noopener"><b>Edge Computing</b><span>Mar 2026</span></a>
+    <a class="cert" style="--c:#6c4bff" href="https://drive.google.com/file/d/1MVuVXol-LOlZ_6BrOicHHt1bKKbHHPCB/view?usp=sharing" target="_blank" rel="noopener"><b>Cloud Computing</b><span>May 2024</span></a>
+    <a class="cert" style="--c:#00b8c8" href="https://drive.google.com/file/d/1E_NNwJUaXu31tKhcZA1Yh0i1cFmwbAow/view?usp=sharing" target="_blank" rel="noopener"><b>The Joy of Computing using Python</b><span>Oct 2023</span></a>
+    <a class="cert" style="--c:#ffab1a" href="https://drive.google.com/file/d/1s1ixbgcaf1Zjhv2SpEwju8f6fz_Rf4yw/view?usp=sharing" target="_blank" rel="noopener"><b>Problem Solving through Programming in C</b><span>Oct 2023</span></a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <div><h2>Let's talk</h2><p>Open to research and cloud opportunities.</p></div>
+    <div>
+      <a href="mailto:hsripadarao1108@gmail.com">hsripadarao1108@gmail.com</a>
+      <a href="tel:+917619369147">+91 76193 69147</a>
+      <a href="https://github.com/HSRIPADARAO1108" target="_blank" rel="noopener">github.com/HSRIPADARAO1108</a>
+      <a href="https://linkedin.com/in/sripadarao" target="_blank" rel="noopener">linkedin.com/in/sripadarao</a>
     </div>
-
-    <div class="card">
-      <h3>Multi-Cloud Infrastructure Automation (IaC)</h3>
-      <div class="meta">2026</div>
-      <ul>
-        <li>Designed decoupled infrastructure on Azure and AWS using Terraform for resource provisioning.</li>
-        <li>Structured Azure resource groups and environment stacks for departmental lab allocations.</li>
-        <li>Deployed image-based application workloads on AWS App Runner.</li>
-      </ul>
-      <div class="tags">
-        <span class="tag">Terraform</span><span class="tag">Azure Resource Manager</span><span class="tag">AWS App Runner</span>
-      </div>
-      <div class="links"><a href="#" target="_blank" rel="noopener">GitHub Repository</a></div>
-    </div>
-
-    <div class="card">
-      <h3>High-Availability Web Server and VM Lifecycle Infrastructure</h3>
-      <div class="meta">2025</div>
-      <ul>
-        <li>Created custom EC2 Linux AMIs that automate web server bootstrap.</li>
-        <li>Isolated network layers using strict ingress/egress Security Group rules.</li>
-        <li>Configured Auto Scaling policies driven by performance metrics to improve resilience.</li>
-      </ul>
-      <div class="tags">
-        <span class="tag">AWS EC2</span><span class="tag">Auto Scaling</span><span class="tag">Security Groups</span><span class="tag">Linux</span>
-      </div>
-      <div class="links"><a href="#" target="_blank" rel="noopener">GitHub Repository</a></div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-      <div class="card"><h3>ML and Explainability</h3>Isolation Forest, SHAP, scikit-learn, Pandas, NumPy</div>
-      <div class="card"><h3>Cloud</h3>AWS (EC2, CloudWatch, SES, App Runner), Microsoft Azure</div>
-      <div class="card"><h3>DevOps and IaC</h3>Terraform, Git/GitHub, Linux (Ubuntu/Fedora)</div>
-      <div class="card"><h3>Languages</h3>Python, C, Bash, SQL, JavaScript</div>
-      <div class="card"><h3>Tools</h3>Streamlit, boto3, VS Code, Linux CLI</div>
-    </div>
-  </section>
-
-  <!-- EDUCATION -->
-  <section id="education">
-    <h2>Education</h2>
-
-    <div class="card">
-      <div class="edu">
-        <div>
-          <h3>Dr. Ambedkar Institute of Technology, Bengaluru</h3>
-          <div class="meta">M.Tech in Computer Science and Engineering | CGPA: 7.94/10.0</div>
-        </div>
-        <div class="when">Expected 2027</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="edu">
-        <div>
-          <h3>Vivekananda Institute of Technology</h3>
-          <div class="meta">BE in Computer Science and Engineering with Honours | Final CGPA: 8.2/10.0</div>
-        </div>
-        <div class="when">May 2025</div>
-      </div>
-      <a class="cert-link" href="https://drive.google.com/file/d/1YCGikpNhif1HDTpkUtECgMGZ_f5_QhLv/view?usp=sharing" target="_blank" rel="noopener">View Convocation Certificate</a>
-    </div>
-
-    <div class="card">
-      <div class="edu">
-        <div>
-          <h3>VKJ PU College</h3>
-          <div class="meta">2nd PUC (PCMB) | 80%</div>
-        </div>
-        <div class="when">2021</div>
-      </div>
-      <a class="cert-link" href="https://drive.google.com/file/d/1yDZ9Ybq2vzF-Rj-p-miiJzxXUUCobycv/view?usp=sharing" target="_blank" rel="noopener">View 2nd PUC Marks Card</a>
-    </div>
-
-    <div class="card">
-      <div class="edu">
-        <div>
-          <h3>SSLC</h3>
-          <div class="meta">Secondary School Leaving Certificate</div>
-        </div>
-      </div>
-      <a class="cert-link" href="https://drive.google.com/file/d/1Pu0aC_Yk14BCRx-Dfu9RCOP422rZrPpt/view?usp=sharing" target="_blank" rel="noopener">View SSLC Marks Card</a>
-    </div>
-  </section>
-
-  <!-- CERTIFICATES -->
-  <section id="certificates">
-    <h2>NPTEL Certifications</h2>
-    <div class="card">
-      <ul class="cert-list">
-        <li><a href="https://drive.google.com/file/d/1sfYUtwjbNqjRO42U2nsGyi0u54nKoGOO/view?usp=sharing" target="_blank" rel="noopener">Edge Computing</a><span class="date">Mar 2026</span></li>
-        <li><a href="https://drive.google.com/file/d/1MVuVXol-LOlZ_6BrOicHHt1bKKbHHPCB/view?usp=sharing" target="_blank" rel="noopener">Cloud Computing</a><span class="date">May 2024</span></li>
-        <li><a href="https://drive.google.com/file/d/1E_NNwJUaXu31tKhcZA1Yh0i1cFmwbAow/view?usp=sharing" target="_blank" rel="noopener">The Joy of Computing using Python</a><span class="date">Oct 2023</span></li>
-        <li><a href="https://drive.google.com/file/d/1s1ixbgcaf1Zjhv2SpEwju8f6fz_Rf4yw/view?usp=sharing" target="_blank" rel="noopener">Problem Solving through Programming in C</a><span class="date">Oct 2023</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-      <p>Email: <a href="mailto:hsripadarao1108@gmail.com">hsripadarao1108@gmail.com</a></p>
-      <p>Phone: <a href="tel:+917619369147">+91 76193 69147</a></p>
-      <p>GitHub: <a href="https://github.com/HSRIPADARAO1108" target="_blank" rel="noopener">github.com/HSRIPADARAO1108</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/sripadarao" target="_blank" rel="noopener">linkedin.com/in/sripadarao</a></p>
-    </div>
-  </section>
-
+  </div>
+</section>
 </main>
-
+<div id="pal" hidden role="dialog" aria-modal="true" aria-label="Quick jump">
+  <div class="palbox"><input id="pin" type="text" placeholder="Jump to a section or action" aria-label="Search sections and actions" autocomplete="off"><ul id="pl"></ul></div>
+</div>
 <footer>&copy; 2026 H Sripada Rao</footer>
 
+<script>
+// Rotating role line
+(function(){
+  var r=["M.Tech CSE Student","Explainable AI","Cloud Anomaly Detection","AWS and Terraform"],i=0,el=document.getElementById('role');
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  setInterval(function(){i=(i+1)%r.length;el.textContent=r[i];},2200);
+})();
+
+// Theme toggle (remembers choice)
+(function(){
+  var b=document.getElementById('theme'),h=document.documentElement,t=null;
+  try{t=localStorage.getItem('theme');}catch(e){}
+  if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  function set(v){h.setAttribute('data-theme',v);b.textContent=v==='dark'?'Light':'Dark';try{localStorage.setItem('theme',v);}catch(e){}}
+  set(t);b.addEventListener('click',function(){set(h.getAttribute('data-theme')==='dark'?'light':'dark');});
+})();
+
+// Scroll progress bar
+(function(){
+  var bar=document.getElementById('bar');
+  addEventListener('scroll',function(){var d=document.documentElement,m=d.scrollHeight-d.clientHeight;bar.style.width=(m>0?d.scrollTop/m*100:0)+'%';},{passive:true});
+})();
+
+// Pipeline stages
+(function(){
+  var nodes=document.querySelectorAll('.node'),box=document.getElementById('flowtxt');
+  nodes.forEach(function(n){n.addEventListener('click',function(){
+    nodes.forEach(function(o){o.setAttribute('aria-pressed','false');});
+    n.setAttribute('aria-pressed','true');box.textContent=n.dataset.t;box.style.setProperty('--c',n.style.getPropertyValue('--c'));
+  });});
+})();
+
+// Anomaly playground
+(function(){
+  var base={cpu:35,net:30,disk:25},sd=12,el=function(i){return document.getElementById(i)};
+  var cols={cpu:'#ff3d81',net:'#00b8c8',disk:'#ffab1a'},nm={cpu:'CPU',net:'Network',disk:'Disk'};
+  var fix={cpu:'Check for runaway or heavy processes on the server.',net:'Check for unusual traffic or large data transfers.',disk:'Check for heavy read/write jobs or a full disk.'};
+  var ids={cpu:['rc','vc'],net:['rn','vn'],disk:['rd','vd']};
+  function upd(){
+    var z={},sum=0;
+    Object.keys(ids).forEach(function(k){var v=+el(ids[k][0]).value;el(ids[k][1]).textContent=v;z[k]=Math.pow((v-base[k])/sd,2);sum+=z[k];});
+    var bad=sum>9;
+    el('vd2').textContent=bad?'Anomaly detected':'Normal';el('vd2').style.color=bad?'#ff3d81':'#00a3b0';
+    el('gi').style.left='calc('+Math.min(100,sum/30*100)+'% - 3px)';
+    var h='',top='cpu';
+    Object.keys(z).forEach(function(k){if(z[k]>z[top])top=k;var p=sum>.5?Math.round(z[k]/sum*100):0;
+      h+='<div class="pb"><span>'+nm[k]+'</span><i><span style="width:'+p+'%;background:'+cols[k]+'"></span></i><span>'+p+'%</span></div>';});
+    el('shares').innerHTML=h;
+    el('act').textContent=bad?'Main cause: '+nm[top]+'. '+fix[top]:'All three metrics are near their usual range.';
+  }
+  ['rc','rn','rd'].forEach(function(i){el(i).addEventListener('input',upd);});
+  document.querySelectorAll('.presets button').forEach(function(b){b.addEventListener('click',function(){
+    var v=b.dataset.p.split(',');el('rc').value=v[0];el('rn').value=v[1];el('rd').value=v[2];upd();});});
+  upd();
+})();
+
+// Quick jump (Ctrl+K)
+(function(){
+  var pal=document.getElementById('pal'),inp=document.getElementById('pin'),list=document.getElementById('pl'),cur=0,shown=[];
+  function go(id){return function(){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});};}
+  function open(u){return function(){window.open(u,'_blank','noopener');};}
+  var items=[['Projects',go('projects')],['Try it: explain an anomaly',go('try')],['Skills',go('skills')],['Education',go('education')],['Certificates',go('certs')],['Contact',go('contact')],
+    ['Open resume',open('resume.pdf')],['Open GitHub',open('https://github.com/HSRIPADARAO1108')],['Open LinkedIn',open('https://linkedin.com/in/sripadarao')],
+    ['Send email',function(){location.href='mailto:hsripadarao1108@gmail.com';}],['Switch light/dark theme',function(){document.getElementById('theme').click();}]];
+  function render(){
+    var q=inp.value.toLowerCase();shown=items.filter(function(i){return i[0].toLowerCase().indexOf(q)>-1;});
+    if(cur>=shown.length)cur=0;
+    list.innerHTML='';
+    shown.forEach(function(it,i){var li=document.createElement('li'),b=document.createElement('button');
+      b.type='button';b.textContent=it[0];if(i===cur)b.className='on';
+      b.addEventListener('click',function(){close();it[1]();});li.appendChild(b);list.appendChild(li);});
+  }
+  function show(){pal.hidden=false;inp.value='';cur=0;render();inp.focus();}
+  function close(){pal.hidden=true;}
+  document.getElementById('kbtn').addEventListener('click',show);
+  pal.addEventListener('click',function(e){if(e.target===pal)close();});
+  inp.addEventListener('input',function(){cur=0;render();});
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();pal.hidden?show():close();return;}
+    if(pal.hidden)return;
+    if(e.key==='Escape')close();
+    else if(e.key==='ArrowDown'){e.preventDefault();cur=Math.min(cur+1,shown.length-1);render();}
+    else if(e.key==='ArrowUp'){e.preventDefault();cur=Math.max(cur-1,0);render();}
+    else if(e.key==='Enter'&&shown[cur]){close();shown[cur][1]();}
+  });
+})();
+
+// Project filter
+(function(){
+  var btns=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.proj');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(o){o.setAttribute('aria-pressed','false');});b.setAttribute('aria-pressed','true');
+    cards.forEach(function(c){c.hidden=!(b.dataset.f==='all'||c.dataset.cat.split(' ').indexOf(b.dataset.f)>-1);});
+  });});
+})();
+
+// Copy email
+(function(){
+  var b=document.getElementById('copy'),mail='hsripadarao1108@gmail.com';
+  b.addEventListener('click',function(){
+    function done(t){b.textContent=t;setTimeout(function(){b.textContent='Copy email address';},1800);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(mail).then(function(){done('Copied');},function(){done(mail);});}
+    else{done(mail);}
+  });
+})();
+
+// Cloud that follows the scroll line
+(function(){
+  var tr=document.getElementById('track'),c=tr.firstElementChild;
+  function pos(){var d=document.documentElement,m=d.scrollHeight-d.clientHeight,f=m>0?d.scrollTop/m:0;
+    c.style.top=(f*(tr.clientHeight-22))+'px';}
+  addEventListener('scroll',pos,{passive:true});addEventListener('resize',pos);pos();
+})();
+
+// Easter egg: type "storm"
+(function(){
+  var buf='';
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='INPUT'||e.key.length!==1)return;
+    buf=(buf+e.key.toLowerCase()).slice(-5);
+    if(buf==='storm'){var h=document.querySelector('.hero');h.classList.remove('storm');void h.offsetWidth;h.classList.add('storm');
+      setTimeout(function(){h.classList.remove('storm');},3000);window.scrollTo({top:0,behavior:'smooth'});buf='';}
+  });
+})();
+
+// Simulated anomaly demo (illustrative data only)
+(function(){
+  var cv=document.getElementById('cv'),ctx=cv.getContext('2d'),N=80,data=[],flags=[];
+  var dot=document.getElementById('dot'),st=document.getElementById('st'),why=document.getElementById('why');
+  var spike=0,dom='cpu',cool=0,hero=document.querySelector('.hero');
+  for(var i=0;i<N;i++){data.push(30+Math.random()*8);flags.push(false);}
+  function explain(){
+    var m={cpu:.2,net:.2,disk:.2};m[dom]=.5+Math.random()*.25;
+    var rest=1-m[dom],o=Object.keys(m).filter(function(k){return k!==dom});
+    var a=Math.random()*rest;m[o[0]]=a;m[o[1]]=rest-a;
+    var cols={cpu:'#ff3d81',net:'#00b8c8',disk:'#ffab1a'},nm={cpu:'CPU',net:'Network',disk:'Disk'},h='';
+    ['cpu','net','disk'].forEach(function(k){var p=Math.round(m[k]*100);
+      h+='<div class="bar"><span>'+nm[k]+'</span><i><span style="width:'+p+'%;background:'+cols[k]+'"></span></i><span>'+p+'%</span></div>';});
+    why.innerHTML='<small style="color:#b9b3e6">Why it was flagged (illustrative contribution):</small>'+h;why.hidden=false;
+  }
+  function trigger(){if(spike>0)return;spike=7;dom=['cpu','net','disk'][Math.floor(Math.random()*3)];}
+  document.getElementById('inj').addEventListener('click',trigger);
+  function step(){
+    var v=32+Math.random()*8;
+    if(spike>0){v=82+Math.random()*14;spike--;}
+    else{cool++;if(cool>45){cool=0;trigger();}}
+    var bad=v>70;data.push(v);flags.push(bad);data.shift();flags.shift();
+    if(bad&&!dot.classList.contains('bad')){dot.classList.add('bad');st.textContent='Anomaly detected';hero.classList.add('storm');explain();}
+    if(!bad&&dot.classList.contains('bad')){dot.classList.remove('bad');st.textContent='Normal';hero.classList.remove('storm');}
+    draw();
+  }
+  function draw(){
+    var w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle='#2d2670';ctx.lineWidth=1;
+    for(var g=0;g<4;g++){var y=h*g/4+10;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+    ctx.beginPath();
+    data.forEach(function(v,i){var x=i*w/(N-1),y=h-10-(v/100)*(h-20);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+    ctx.strokeStyle='#00e0f0';ctx.lineWidth=2.5;ctx.stroke();
+    data.forEach(function(v,i){if(!flags[i])return;var x=i*w/(N-1),y=h-10-(v/100)*(h-20);
+      ctx.beginPath();ctx.arc(x,y,4.5,0,7);ctx.fillStyle='#ff3d81';ctx.fill();});
+  }
+  draw();
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){trigger();for(var k=0;k<8;k++)step();return;}
+  setInterval(step,260);
+})();
+</script>
 </body>
 </html>
