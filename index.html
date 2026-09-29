@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H Sripada Rao | Portfolio</title>
+<meta name="description" content="M.Tech CSE student working on explainable AI for cloud anomaly detection.">
+<style>
+:root{
+  --bg:#ffffff; --card:#f5f7fb; --text:#1b1f2a; --muted:#5b6475;
+  --accent:#1f3864; --accent2:#2f6fdb; --border:#dfe4ee;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0f1420; --card:#171e2e; --text:#e8ecf5; --muted:#9aa5bb;
+         --accent:#8ab4ff; --accent2:#6ea0ff; --border:#263048; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+
+header.nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:10}
+header.nav .wrap{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;flex-wrap:wrap;gap:8px}
+header.nav strong{color:var(--accent)}
+header.nav nav a{margin-left:16px;font-size:.95rem;color:var(--muted)}
+header.nav nav a:hover{color:var(--accent2);text-decoration:none}
+
+.hero{padding:64px 0 32px}
+.hero h1{font-size:2.4rem;color:var(--accent);line-height:1.2}
+.hero p.role{font-size:1.15rem;color:var(--muted);margin:8px 0 16px}
+.hero p.about{max-width:680px}
+.btns{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:9px 18px;border-radius:8px;border:1px solid var(--accent2);
+     color:var(--accent2);font-weight:600;font-size:.95rem}
+.btn.primary{background:var(--accent2);color:#fff}
+.btn:hover{text-decoration:none;opacity:.88}
+
+section{padding:36px 0}
+section h2{font-size:1.5rem;color:var(--accent);border-bottom:2px solid var(--border);
+           padding-bottom:6px;margin-bottom:20px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.card h3{font-size:1.1rem;margin-bottom:2px}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+.card ul{padding-left:20px}
+.card li{margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:2px 10px;font-size:.8rem;color:var(--muted)}
+.links{margin-top:10px;display:flex;gap:14px;flex-wrap:wrap;font-size:.95rem}
+
+.edu{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.edu .when{color:var(--muted);font-size:.9rem;white-space:nowrap}
+.cert-link{display:inline-block;margin:8px 12px 0 0;font-size:.9rem;font-weight:600}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.skills .card{margin:0}
+.skills h3{font-size:1rem;margin-bottom:6px}
+
+.cert-list{list-style:none;padding:0}
+.cert-list li{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+              padding:10px 0;border-bottom:1px solid var(--border)}
+.cert-list li:last-child{border-bottom:none}
+.cert-list .date{color:var(--muted);font-size:.9rem}
+
+footer{padding:28px 0;text-align:center;color:var(--muted);font-size:.9rem;border-top:1px solid var(--border);margin-top:20px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <strong>H Sripada Rao</strong>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>H Sripada Rao</h1>
+    <p class="role">M.Tech CSE Student | Explainable AI and Cloud Systems</p>
+    <p class="about">
+      I work on explainable AI for cloud anomaly detection. My M.Tech project, ExplainAlert,
+      pairs unsupervised detection (Isolation Forest) with SHAP-based root-cause explanations
+      on real AWS CloudWatch metrics. My research interests are explainable machine learning,
+      anomaly detection, and reliable cloud systems.
+    </p>
+    <div class="btns">
+      <a class="btn primary" href="resume.pdf" target="_blank" rel="noopener">View Resume</a>
+      <a class="btn" href="https://github.com/HSRIPADARAO1108" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://linkedin.com/in/sripadarao" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="card">
+      <h3>ExplainAlert: Explainable Anomaly Detection for Cloud Servers</h3>
+      <div class="meta">M.Tech Research Project | June 2026 | Guide: Dr. Srinivas A H</div>
+      <ul>
+        <li><b>Detection:</b> Isolation Forest on AWS EC2, reaching 97.9% accuracy and 100% recall on 239 labeled CloudWatch samples (CPU, network, disk) collected over 20 hours, with anomalies injected using Linux stress tools.</li>
+        <li><b>Explainability:</b> SHAP gives per-anomaly root-cause explanations with the percentage contribution of each metric.</li>
+        <li><b>Alerting:</b> Automated pipeline (AWS SES, Telegram Bot API) sending real-time notifications with remediation steps, running within the AWS Free Tier.</li>
+        <li><b>Comparison:</b> Against native CloudWatch anomaly detection, adds root-cause explanation, contribution analysis, and corrective-action suggestions.</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">AWS EC2</span><span class="tag">CloudWatch</span><span class="tag">Python</span>
+        <span class="tag">Isolation Forest</span><span class="tag">SHAP</span><span class="tag">SES</span><span class="tag">Telegram Bot API</span>
+      </div>
+      <!-- Add screenshots later, for example:
+      <img src="images/architecture.png" alt="ExplainAlert architecture" style="max-width:100%;border-radius:8px;margin-top:10px"> -->
+      <div class="links">
+        <!-- Replace # with your repo URL -->
+        <a href="#" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Multi-Cloud Infrastructure Automation (IaC)</h3>
+      <div class="meta">2026</div>
+      <ul>
+        <li>Designed decoupled infrastructure on Azure and AWS using Terraform for resource provisioning.</li>
+        <li>Structured Azure resource groups and environment stacks for departmental lab allocations.</li>
+        <li>Deployed image-based application workloads on AWS App Runner.</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Terraform</span><span class="tag">Azure Resource Manager</span><span class="tag">AWS App Runner</span>
+      </div>
+      <div class="links"><a href="#" target="_blank" rel="noopener">GitHub Repository</a></div>
+    </div>
+
+    <div class="card">
+      <h3>High-Availability Web Server and VM Lifecycle Infrastructure</h3>
+      <div class="meta">2025</div>
+      <ul>
+        <li>Created custom EC2 Linux AMIs that automate web server bootstrap.</li>
+        <li>Isolated network layers using strict ingress/egress Security Group rules.</li>
+        <li>Configured Auto Scaling policies driven by performance metrics to improve resilience.</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">AWS EC2</span><span class="tag">Auto Scaling</span><span class="tag">Security Groups</span><span class="tag">Linux</span>
+      </div>
+      <div class="links"><a href="#" target="_blank" rel="noopener">GitHub Repository</a></div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="card"><h3>ML and Explainability</h3>Isolation Forest, SHAP, scikit-learn, Pandas, NumPy</div>
+      <div class="card"><h3>Cloud</h3>AWS (EC2, CloudWatch, SES, App Runner), Microsoft Azure</div>
+      <div class="card"><h3>DevOps and IaC</h3>Terraform, Git/GitHub, Linux (Ubuntu/Fedora)</div>
+      <div class="card"><h3>Languages</h3>Python, C, Bash, SQL, JavaScript</div>
+      <div class="card"><h3>Tools</h3>Streamlit, boto3, VS Code, Linux CLI</div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <h2>Education</h2>
+
+    <div class="card">
+      <div class="edu">
+        <div>
+          <h3>Dr. Ambedkar Institute of Technology, Bengaluru</h3>
+          <div class="meta">M.Tech in Computer Science and Engineering | CGPA: 7.94/10.0</div>
+        </div>
+        <div class="when">Expected 2027</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="edu">
+        <div>
+          <h3>Vivekananda Institute of Technology</h3>
+          <div class="meta">BE in Computer Science and Engineering with Honours | Final CGPA: 8.2/10.0</div>
+        </div>
+        <div class="when">May 2025</div>
+      </div>
+      <a class="cert-link" href="certificates/degree-convocation-certificate.pdf" target="_blank" rel="noopener">View Convocation Certificate</a>
+    </div>
+
+    <div class="card">
+      <div class="edu">
+        <div>
+          <h3>VKJ PU College</h3>
+          <div class="meta">2nd PUC (PCMB) | 80%</div>
+        </div>
+        <div class="when">2021</div>
+      </div>
+      <a class="cert-link" href="certificates/puc-2-marks-card.pdf" target="_blank" rel="noopener">View 2nd PUC Marks Card</a>
+    </div>
+
+    <div class="card">
+      <div class="edu">
+        <div>
+          <h3>SSLC</h3>
+          <div class="meta">Secondary School Leaving Certificate</div>
+        </div>
+      </div>
+      <a class="cert-link" href="certificates/sslc-marks-card.pdf" target="_blank" rel="noopener">View SSLC Marks Card</a>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates">
+    <h2>NPTEL Certifications</h2>
+    <div class="card">
+      <ul class="cert-list">
+        <li><a href="certificates/nptel-edge-computing.pdf" target="_blank" rel="noopener">Edge Computing</a><span class="date">Mar 2026</span></li>
+        <li><a href="certificates/nptel-cloud-computing.pdf" target="_blank" rel="noopener">Cloud Computing</a><span class="date">May 2024</span></li>
+        <li><a href="certificates/nptel-joy-of-computing-python.pdf" target="_blank" rel="noopener">The Joy of Computing using Python</a><span class="date">Oct 2023</span></li>
+        <li><a href="certificates/nptel-c-programming.pdf" target="_blank" rel="noopener">Problem Solving through Programming in C</a><span class="date">Oct 2023</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+      <p>Email: <a href="mailto:hsripadarao1108@gmail.com">hsripadarao1108@gmail.com</a></p>
+      <p>Phone: <a href="tel:+917619369147">+91 76193 69147</a></p>
+      <p>GitHub: <a href="https://github.com/HSRIPADARAO1108" target="_blank" rel="noopener">github.com/HSRIPADARAO1108</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/sripadarao" target="_blank" rel="noopener">linkedin.com/in/sripadarao</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 H Sripada Rao</footer>
+
+</body>
+</html>
